@@ -1,50 +1,9 @@
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: {{ .Release.Name }}-nginx
-#   labels:
-#     app: nginx
-# spec:
-#   replicas: {{ .Values.replicaCount }}
-#   selector:
-#     matchLabels:
-#       app: nginx
-#   template:
-#     metadata:
-#       labels:
-#         app: nginx
-#     spec:
-#       containers:
-#         - name: {{ .Chart.Name }}
-#           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-#           imagePullPolicy: {{ .Values.image.pullPolicy }}
-#           ports:
-#             - name: http
-#               containerPort: 80
-#               protocol: TCP
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: {{ .Release.Name }}-service
-# spec:
-#   selector:
-#     app.kubernetes.io/instance: {{ .Release.Name }}
-#   type: {{ .Values.service.type }}
-#   ports:
-#     - protocol: {{ .Values.service.protocol | default "TCP" }}
-#       port: {{ .Values.service.port }}
-#       targetPort: {{ .Values.service.targetPort }}
-#       nodePort: 30000
-
-# nginx-deployment.yaml
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: {{ .Release.Name }}-nginx
 spec:
-  replicas: 3
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: nginx
@@ -54,8 +13,8 @@ spec:
         app: nginx
     spec:
       containers:
-        - name: nginx
-          image: nginx:latest
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
             - containerPort: 80
 ---
@@ -64,12 +23,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-service
+  name: {{ .Release.Name }}-service
 spec:
-  type: NodePort
+  type: {{ .Values.service.type }}
   ports:
-    - port: 80
-      targetPort: 80
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
       nodePort: 30000
   selector:
     app: nginx
