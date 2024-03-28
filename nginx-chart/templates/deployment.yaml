@@ -47,7 +47,7 @@ metadata:
 data:
   index.html: |
     <html>
-    <h1>Welcome</h1>
+    <h1>Xin chao</h1>
     </br>
     <h1>Hi! I got deployed in dev Environment using Helm Chart </h1>
     </html
