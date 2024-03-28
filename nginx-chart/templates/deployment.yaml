@@ -43,7 +43,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: release-name-index-html-configmap
+  name: index-html-configmap
   namespace: default
 data:
   index.html: |
