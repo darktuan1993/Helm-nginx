@@ -43,12 +43,12 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-index-html-configmap
+  name: release-name-index-html-configmap
   namespace: default
 data:
   index.html: |
     <html>
     <h1>Welcome</h1>
     </br>
-    <h1> Demo Helm Chart {{ .Values.env.name }} </h1>
+    <h1>Hi! I got deployed in dev Environment using Helm Chart </h1>
     </html
